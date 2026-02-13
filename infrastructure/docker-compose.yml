@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    build: ../service-discovery
+    ports:
+      - "8761:8761"
+
+  kafka:
+    image: bitnami/kafka:latest
+    ports:
+      - "9092:9092"
+
+  product-service:
+    build: ../product-service
+    depends_on:
+      - eureka-server
+      - kafka
